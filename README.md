@@ -8,7 +8,7 @@
 2. Install dependencies with ```sudo npm install```.
 3. Create a config.js file using the config.js.example file with the credentials you need.
 
-4. Run ``` node remote.js``` on any rippled machines that you want to parse the rippled logs for validation confirmations.
+4. Run ``` npm run monitor``` on any rippled machines that you want to parse the rippled logs for validation confirmations.
 5. Run ``` node app.js``` on the machine that you want to talk to the database and run the api.
 
 ##Usage Instructions:
