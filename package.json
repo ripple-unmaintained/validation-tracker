@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Connects with rippled to determine health of validators",
   "scripts": {
-    "monitor": "babel-node remote.js"
+    "monitor": "babel-node monitor.js"
   },
   "dependencies": {
     "async": "^0.9.0",
