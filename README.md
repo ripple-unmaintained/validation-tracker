@@ -1,21 +1,30 @@
 #Validation Tracker
 
+Monitors rippled logs and parses out validation events from the network nodes
 
+##Installation
 
-##Installation Instructions:
+- Install [node.js and npm](http://nodejs.org/).
+- Install dependencies with `npm install`
+- Run `npm run start` on any rippled machines that you want to parse the rippled logs for validations.
 
-1. Install [node.js and npm](http://nodejs.org/).
-2. Install dependencies with ```sudo npm install```.
-3. Create a config.js file using the config.js.example file with the credentials you need.
+## Configuration
 
-4. Run ``` npm run monitor``` on any rippled machines that you want to parse the rippled logs for validation confirmations.
-5. Run ``` node app.js``` on the machine that you want to talk to the database and run the api.
+All configuration is done via environment variables according to the principles of the [Twelve Factor App](http://12factor.net/)
 
-##Usage Instructions:
+- RIPPLED_LOG_PATH
+- MONGO_HOST
+- MONGO_PORT
+- MONGO_DATABASE
 
-```/health``` will print the health of all the validators in the database throughout all time in json format.
+## Usage
 
-```/health/display``` will display the health of all the validators in the database throughout all time with an option to add to and from filters.
+The core class is `RippledLogMonitor` which tails the rippled logs and parses out
+validation events, formatting them as JSON and logging to the console.
 
-In order to add filters you can add ```/from/to``` to the url where the format of each date is yyyymmddhhmmss. 
-For example ```/health/20130101000000/20141204000000``` would display the json data of all the validators from _Jan. 1st, 2013_ to _Dec. 4th, 2014_.
+To extend the monitor functionality create a subclass of `RippledLogMonitor` and
+override the `onValidation(validation)` method.
+
+By default a single subclass is implemented in `monitor.js` which writes each validation
+to a MongoDB document database configured via the above environment variables
+

@@ -1,9 +1,9 @@
 {
-  "name": "rippled-proxy",
-  "version": "0.0.1",
-  "description": "Connects with rippled to determine health of validators",
+  "name": "validation-tracker",
+  "version": "1.0.0",
+  "description": "Monitors rippled logs for validation events",
   "scripts": {
-    "monitor": "babel-node monitor.js",
+    "start": "babel-node monitor.js",
     "test-mongo": "babel-node test/mongo-validation.js"
   },
   "dependencies": {
