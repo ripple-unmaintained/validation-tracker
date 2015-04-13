@@ -17,6 +17,11 @@ All configuration is done via environment variables according to the principles 
 - MONGO_PORT
 - MONGO_DATABASE
 
+### Optional
+
+- STATSD_HOST
+- STATSD_PORT
+
 ## Usage
 
 The core class is `RippledLogMonitor` which tails the rippled logs and parses out
