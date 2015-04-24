@@ -1,19 +1,34 @@
 import RippledLogMonitor from './lib/rippled_log_monitor'
-import Validation from './lib/validation'
-import mongo from './lib/mongoose'
+import Hbase from 'hbase'
 import StatsD from 'node-statsd'
+import Promise from 'bluebird'
+import Moment from 'moment'
+
+Promise.promisifyAll(Hbase);
 
 const RIPPLED_LOG_PATH = process.env.RIPPLED_LOG_PATH || '/var/log/rippled/debug.log'
 
-class MongoValidationLogger extends RippledLogMonitor {
+class HbaseValidationLogger extends RippledLogMonitor {
+  constructor() {
+    this.client = Hbase({
+      host: process.env.HBASE_HOST,
+      port: process.env.HBASE_PORT
+    })
+    super()
+  }
   // @override
   onValidation(entry) {
-    Validation.create(entry, (error, record) => {
-      if (error) {
-        return console.error('mongo create error', error)
-      }
-      console.log('saved validation in mongo', record)
-    })
+    let row = this.client.table(process.env.HBASE_TABLE)
+      // Use "public_key|ledger_hash" as row name
+      .row(`${entry.public_key}|${entry.hash}`)
+
+    row.putAsync('validation:public_key', entry.public_key)
+      .then(row.putAsync('validation:hash', entry.hash))
+      .then(row.putAsync('validation:datetime', Moment(new Date(entry.datetime)).format("YYYYMMDDHHmmss")))
+      .then(console.log('saved validation in hbase'))
+      .error(function(err) {
+        console.error('hbase put error', err)
+      })
   }
 }
 
@@ -31,18 +46,8 @@ class StatsdValidationLogger extends RippledLogMonitor {
   }
 }
 
-let monitor = new MongoValidationLogger()
+let monitor = new HbaseValidationLogger()
 let statsdMonitor = new StatsdValidationLogger()
 
+monitor.monitorFile(RIPPLED_LOG_PATH)
 statsdMonitor.monitorFile(RIPPLED_LOG_PATH)
-
-mongo.connection.once('open', callback => {
-  console.log('mongodb connected')
-  monitor.monitorFile(RIPPLED_LOG_PATH)
-})
-
-mongo.connection.on('error', error => {
-  console.error('mongo connection error:', error)
-  process.exit(0)
-})
-
