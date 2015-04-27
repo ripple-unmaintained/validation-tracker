@@ -46,8 +46,33 @@ class StatsdValidationLogger extends RippledLogMonitor {
   }
 }
 
+class HbaseLedgerLogger extends RippledLogMonitor {
+  constructor() {
+    this.client = Hbase({
+      host: process.env.HBASE_HOST,
+      port: process.env.HBASE_PORT
+    })
+    super()
+  }
+  // @override
+  onLedger(entry) {
+    let row = this.client.table(process.env.HBASE_TABLE)
+      // Use "node uuid|ledger sequence" as row name
+      .row(`${process.env.UUID}|${entry.sequence}`)
+
+    row.putAsync('ledger:sequence', entry.sequence)
+    .then(row.putAsync('ledger:datetime', Moment(new Date(entry.datetime)).format("YYYYMMDDHHmmss")))
+      .then(console.log('saved ledger in hbase'))
+      .error(function(err) {
+        console.error('hbase put error', err)
+      })
+  }
+}
+
 let monitor = new HbaseValidationLogger()
 let statsdMonitor = new StatsdValidationLogger()
+let ledgerMonitor = new HbaseLedgerLogger();
 
 monitor.monitorFile(RIPPLED_LOG_PATH)
 statsdMonitor.monitorFile(RIPPLED_LOG_PATH)
+ledgerMonitor.monitorFile(RIPPLED_LOG_PATH)
