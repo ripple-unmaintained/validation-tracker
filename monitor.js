@@ -18,7 +18,7 @@ class HbaseValidationLogger extends RippledLogMonitor {
   }
   // @override
   onValidation(entry) {
-    let row = this.client.table(process.env.HBASE_TABLE)
+    let row = this.client.table(process.env.HBASE_VALIDATIONS_TABLE)
       // Use "public_key|ledger_hash" as row name
       .row(`${entry.public_key}|${entry.hash}`)
 
@@ -56,7 +56,7 @@ class HbaseLedgerLogger extends RippledLogMonitor {
   }
   // @override
   onLedger(entry) {
-    let row = this.client.table(process.env.HBASE_TABLE)
+    let row = this.client.table(process.env.HBASE_LEDGERS_TABLE)
       // Use "node uuid|ledger sequence" as row name
       .row(`${process.env.UUID}|${entry.sequence}`)
 
