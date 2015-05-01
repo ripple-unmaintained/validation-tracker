@@ -3,7 +3,6 @@ import StatsdValidationTracker from './lib/statsd/validation_tracker'
 import Hbase from 'hbase'
 import StatsD from 'node-statsd'
 import Promise from 'bluebird'
-import Moment from 'moment'
 const RIPPLED_LOG_PATH = process.env.RIPPLED_LOG_PATH || '/var/log/rippled/debug.log'
 
 Promise.promisifyAll(Hbase)
