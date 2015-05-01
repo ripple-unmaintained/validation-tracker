@@ -16,6 +16,7 @@ All configuration is done via environment variables according to the principles 
 - HBASE_HOST
 - HBASE_PORT
 - HBASE_TABLE
+- VALIDATION_TRACKER_POSTGRES_URL
 
 ### Optional
 
