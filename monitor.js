@@ -1,29 +1,43 @@
-import HbaseValidationTracker from './lib/hbase/validation_tracker'
-import StatsdValidationTracker from './lib/statsd/validation_tracker'
-import PostgresValidationTracker from './lib/postgres/validation_tracker'
 import Hbase from 'hbase'
 import StatsD from 'node-statsd'
 import Promise from 'bluebird'
+import ValidationTracker from './lib/validation_tracker'
+
 const RIPPLED_LOG_PATH = process.env.RIPPLED_LOG_PATH || '/var/log/rippled/debug.log'
 
-Promise.promisifyAll(Hbase)
+module.exports = function(options) {
 
-let hbaseClient = Hbase({
-  host: process.env.HBASE_HOST,
-  port: process.env.HBASE_PORT
-})
+  let trackers = []
 
-let statsdClient = new StatsD({
-  host: process.env.STATSD_HOST,
-  port: process.env.STATSD_PORT
-})
+  if (options.hbase) {
+    let HbaseValidationTracker = require('./lib/hbase/validation_tracker')
+    Promise.promisifyAll(Hbase)
+    let hbaseClient = Hbase({
+      host: process.env.HBASE_HOST,
+      port: process.env.HBASE_PORT
+    })
+    trackers.push(new HbaseValidationTracker(hbaseClient))
+  }
 
-let trackers = [
-  new HbaseValidationTracker(hbaseClient),
-  new StatsdValidationTracker(statsdClient),
-  new PostgresValidationTracker()
-]
+  if (options.postgres) {
+    let PostgresValidationTracker = require('./lib/postgres/validation_tracker')
+    trackers.push(new PostgresValidationTracker())
+  }
 
-trackers.forEach(tracker => {
-  tracker.monitorFile(RIPPLED_LOG_PATH)
-})
+  if (options.graphite) {
+    let StatsdValidationTracker = require('./lib/statsd/validation_tracker')
+    let statsdClient = new StatsD({
+      host: process.env.STATSD_HOST,
+      port: process.env.STATSD_PORT
+    })
+    trackers.push(new StatsdValidationTracker(statsdClient))
+  }
+
+  if (options.stdout) {
+    trackers.push(new ValidationTracker())
+  }
+
+  trackers.forEach(tracker => {
+    tracker.monitorFile(RIPPLED_LOG_PATH)
+  })
+}
