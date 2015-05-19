@@ -64,7 +64,5 @@ validation events, formatting them as JSON and logging to the console.
 To extend the monitor functionality create a subclass of `RippledLogMonitor` and
 override the `onValidation(validation)` method.
 
-By default a single subclass is implemented in `monitor.js` which writes each validation
-to an Hbase database configured via the above environment variables
-
+By default `validation-tracker` will exit without a database option specified
 
