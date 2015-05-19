@@ -1,0 +1,18 @@
+#! upstart
+
+start on startup
+stop on shutdown
+
+chdir /opt/validation-tracker
+
+env RIPPLED_LOG_PATH={{ rippled_log_path }}
+env HBASE_HOST={{ hbase_host }}
+env HBASE_PORT={{ hbase_port }}
+env HBASE_TABLE={{ hbase_table }}
+env VALIDATION_TRACKER_POSTGRES_URL={{ postgres_url }}
+
+exec validation-tracker --hbase --postgres
+
+respawn
+
+respawn limit 10 90
