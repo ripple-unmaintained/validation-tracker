@@ -1,0 +1,15 @@
+---
+- name: Install npm
+  apt: name=npm update_cache=true
+- name: Install nodejs
+  apt: name=nodejs
+- name: Symlink /usr/bin/node to /usr/bin/nodejs
+  file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
+- name: Install libpq-dev
+  apt: name=libpq-dev
+- name: Install "validation-tracker" node.js package globally
+  npm: name=validation-tracker global=yes
+- name: Copy validation-tracker.conf
+  template: src=upstart.conf.j2 dest=/etc/init/validation-tracker.conf
+- name: Start validation-tracker
+  service: name=validation-tracker state=started
