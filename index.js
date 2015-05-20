@@ -13,5 +13,5 @@ program
   .option('-o, --stdout', 'Log validations to stdout')
   .parse(process.argv);
 
-require('./monitor')(program)
+require('./build/monitor')(program)
 
