@@ -5,7 +5,10 @@ Monitors rippled logs and parses out validation events from the network nodes
 ## Installation
 
 - Install [node.js and npm](http://nodejs.org/).
-- Install dependencies with `npm install -g validation-tracker`
+
+````
+npm install -g validation-tracker
+````
 
 ## Configuration
 
@@ -66,3 +69,6 @@ override the `onValidation(validation)` method.
 
 By default `validation-tracker` will exit without a database option specified
 
+## Development
+
+In development you must run `gulp` to create a build

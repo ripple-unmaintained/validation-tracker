@@ -1,8 +1,6 @@
 #!/usr/local/bin/node
 
-require('babel/register')
-
-var program = require('commander');
+var program = require('commander')
 var packageJson = require('./package.json')
  
 program
