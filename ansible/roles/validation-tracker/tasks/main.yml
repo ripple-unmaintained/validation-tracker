@@ -3,8 +3,6 @@
   apt: name=npm update_cache=true
 - name: Install nodejs
   apt: name=nodejs
-- name: Symlink /usr/bin/node to /usr/bin/nodejs
-  file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
 - name: Install libpq-dev
   apt: name=libpq-dev
 - name: Install "validation-tracker" node.js package globally
