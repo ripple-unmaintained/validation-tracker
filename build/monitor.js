@@ -25,7 +25,7 @@ module.exports = function (options) {
   var trackers = [];
 
   if (options.hbase) {
-    var HbaseValidationTracker = require('./lib/hbase/validation_tracker');
+    var HbaseValidationTracker = require('./hbase/validation_tracker');
     _bluebird2['default'].promisifyAll(_hbase2['default']);
     var hbaseClient = (0, _hbase2['default'])({
       host: process.env.HBASE_HOST,
@@ -35,12 +35,12 @@ module.exports = function (options) {
   }
 
   if (options.postgres) {
-    var PostgresValidationTracker = require('./lib/postgres/validation_tracker');
+    var PostgresValidationTracker = require('./postgres/validation_tracker');
     trackers.push(new PostgresValidationTracker());
   }
 
   if (options.graphite) {
-    var StatsdValidationTracker = require('./lib/statsd/validation_tracker');
+    var StatsdValidationTracker = require('./statsd/validation_tracker');
     var statsdClient = new _nodeStatsd2['default']({
       host: process.env.STATSD_HOST,
       port: process.env.STATSD_PORT
