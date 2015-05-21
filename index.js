@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#!/usr/bin/env nodejs
 
 var program = require('commander')
 var packageJson = require('./package.json')
