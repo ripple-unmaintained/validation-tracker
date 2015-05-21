@@ -10,10 +10,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network :private_network, ip: "192.168.111.222"
 
+
+  # development vault password is "password12345"
   config.vm.provision "ansible" do |ansible|
-
     ansible.playbook   = "ansible/playbook.yml"
-
+    ansible.ask_vault_pass = true
+    ansible.raw_arguments = ['-e', '@ansible/vault/development.yml']
     ansible.extra_vars = {
       ansible_ssh_host: "127.0.0.1",
       ansible_ssh_user: "vagrant"

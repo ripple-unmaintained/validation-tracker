@@ -71,4 +71,19 @@ By default `validation-tracker` will exit without a database option specified
 
 ## Development
 
+### Local VM Setup
+
+Use [vagrant](http://docs.vagrantup.com/v2/provisioning/ansible.html) to provision a local virtual machine with validation-tracker installed. By default the `Vagrantfile` provides an ansible-based provisioner. Please install VirtualBox before provisioning the development environment
+
+````
+vagrant up --provision
+````
+The above command will start a new virtual machine based on ubuntu 14.04 64-bit using VirtualBox and run the vagrant play to provision the validation-tracker.
+
+###### Ansible Vault Password Prompt
+
+Environment variables are encrpyted in `ansible/vault/development.yml` and you will be prompted to enter in the password for ansible vault. The password for is `password12345`
+
+### Modifying Source Code
+
 In development you must run `gulp` to create a build
