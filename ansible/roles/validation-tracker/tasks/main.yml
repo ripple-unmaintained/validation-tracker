@@ -1,8 +1,11 @@
 ---
-- name: Install npm
-  apt: name=npm update_cache=true
+- name: Check for nodejs
+  command: which nodejs
+  ignore_errors: True
+  register: nodejs_exists
 - name: Install nodejs
   apt: name=nodejs
+  when: not nodejs_exists.stdout_lines
 - name: Install libpq-dev
   apt: name=libpq-dev
 - name: Install "validation-tracker" node.js package globally
