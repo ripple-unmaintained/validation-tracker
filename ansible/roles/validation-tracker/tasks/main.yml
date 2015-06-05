@@ -9,8 +9,8 @@
 - name: Install libpq-dev
   apt: name=libpq-dev
 - name: Install "validation-tracker" node.js package globally
-  npm: name=validation-tracker global=yes
+  npm: name=validation-tracker global=yes state=latest
 - name: Copy validation-tracker.conf
   template: src=upstart.conf.j2 dest=/etc/init/validation-tracker.conf
 - name: Start validation-tracker
-  service: name=validation-tracker state=started
+  service: name=validation-tracker state=restarted
