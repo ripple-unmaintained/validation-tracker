@@ -13,6 +13,11 @@ var ValidationLogEntry = (function () {
     _classCallCheck(this, ValidationLogEntry);
 
     this.entry = entry.split(" ");
+    if (this.entry.length !== 10) {
+      throw new Error("Invalid log entry");
+    } else if (this.entry[7][0] !== "n" || this.entry[7].length !== 52) {
+      throw new Error("Invalid validation public_key");
+    }
   }
 
   _createClass(ValidationLogEntry, [{
