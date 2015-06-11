@@ -32,6 +32,8 @@ var SqlValidationTracker = (function (_ValidationTracker) {
   _createClass(SqlValidationTracker, [{
     key: 'onValidation',
     value: function onValidation(validation) {
+      var _this = this;
+
       var node, ledger, validation;
 
       return _.models.Node.findOrCreate({ where: {
@@ -43,9 +45,10 @@ var SqlValidationTracker = (function (_ValidationTracker) {
           } });
       }).spread(function (_ledger, created) {
         ledger = _ledger;
-        return _.models.Validation.findOrCreate({ where: {
+        return _.models.Validation.create({ where: {
             ledger_id: ledger.id,
-            node_id: node.id
+            node_id: node.id,
+            reporter_public_key: _this.rippledPubKey
           } });
       }).spread(function (_validation, created) {
         console.log('saved validation in postgres', _validation.toJSON());

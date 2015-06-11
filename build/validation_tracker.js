@@ -21,8 +21,10 @@ var _validation_log_entry = require('./validation_log_entry');
 var _validation_log_entry2 = _interopRequireDefault(_validation_log_entry);
 
 var RippledLogMonitor = (function () {
-  function RippledLogMonitor() {
+  function RippledLogMonitor(rippledPubKey) {
     _classCallCheck(this, RippledLogMonitor);
+
+    this.rippledPubKey = rippledPubKey;
   }
 
   _createClass(RippledLogMonitor, [{

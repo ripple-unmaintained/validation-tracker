@@ -7,7 +7,6 @@
   roles:
     - {
         role: "validation-tracker",
-        rippled_log_path: "/var/log/rippled.log",
         hbase_host: "127.0.0.1",
         hbase_port: 12345,
         hbase_table: "ledger_validations",
