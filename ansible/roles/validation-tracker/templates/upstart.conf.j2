@@ -4,6 +4,7 @@ start on startup
 stop on shutdown
 
 env RIPPLED_LOG_PATH={{ rippled_log_path }}
+env RIPPLED_PUBKEY_NODE={{ rippled_pubkey_node.stdout[1:rippled_pubkey_node.stdout|length-1] }}
 env HBASE_HOST={{ hbase_host }}
 env HBASE_PORT={{ hbase_port }}
 env HBASE_TABLE={{ hbase_table }}

@@ -10,6 +10,11 @@
   apt: name=libpq-dev
 - name: Install "validation-tracker" node.js package globally
   npm: name=validation-tracker global=yes state=latest
+- name: Install jq
+  apt: name=jq
+- name: Get rippled pubkey_node
+  shell: rippled --conf /etc/rippled/rippled.cfg -q server_info | jq '.result.info.pubkey_node'
+  register: rippled_pubkey_node
 - name: Copy validation-tracker.conf
   template: src=upstart.conf.j2 dest=/etc/init/validation-tracker.conf
 - name: Start validation-tracker

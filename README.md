@@ -16,7 +16,8 @@ All configuration is done via environment variables according to the principles 
 
 In addition to the database-specific environment variables the following must be set:
 
-- RIPPLED_LOG_PATH
+- RIPPLED_LOG_PATH - `[debug_logfile]` in rippled.cfg
+- RIPPLED_PUBKEY_NODE - `pubkey_node` from rippled `server_info`
 
 ## Usage
 

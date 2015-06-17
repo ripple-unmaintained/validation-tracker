@@ -23,10 +23,10 @@ var _moment = require('moment');
 var _moment2 = _interopRequireDefault(_moment);
 
 var HbaseValidationTracker = (function (_ValidationTracker) {
-  function HbaseValidationTracker(hbaseClient) {
+  function HbaseValidationTracker(rippledPubKey, hbaseClient) {
     _classCallCheck(this, HbaseValidationTracker);
 
-    _get(Object.getPrototypeOf(HbaseValidationTracker.prototype), 'constructor', this).call(this);
+    _get(Object.getPrototypeOf(HbaseValidationTracker.prototype), 'constructor', this).call(this, rippledPubKey);
     this.client = hbaseClient;
   }
 

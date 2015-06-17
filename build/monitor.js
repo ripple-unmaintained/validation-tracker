@@ -19,8 +19,13 @@ var _validation_tracker = require('./validation_tracker');
 var _validation_tracker2 = _interopRequireDefault(_validation_tracker);
 
 var RIPPLED_LOG_PATH = process.env.RIPPLED_LOG_PATH || '/var/log/rippled/debug.log';
+var RIPPLED_PUBKEY_NODE = process.env.RIPPLED_PUBKEY_NODE;
 
 module.exports = function (options) {
+
+  if (!RIPPLED_PUBKEY_NODE) {
+    return console.log('RIPPLED_PUBKEY_NODE required');
+  }
 
   var trackers = [];
 
@@ -31,12 +36,12 @@ module.exports = function (options) {
       host: process.env.HBASE_HOST,
       port: process.env.HBASE_PORT
     });
-    trackers.push(new HbaseValidationTracker(hbaseClient));
+    trackers.push(new HbaseValidationTracker(RIPPLED_PUBKEY_NODE, hbaseClient));
   }
 
   if (options.postgres) {
     var PostgresValidationTracker = require('./postgres/validation_tracker');
-    trackers.push(new PostgresValidationTracker());
+    trackers.push(new PostgresValidationTracker(RIPPLED_PUBKEY_NODE));
   }
 
   if (options.graphite) {
@@ -45,11 +50,11 @@ module.exports = function (options) {
       host: process.env.STATSD_HOST,
       port: process.env.STATSD_PORT
     });
-    trackers.push(new StatsdValidationTracker(statsdClient));
+    trackers.push(new StatsdValidationTracker(RIPPLED_PUBKEY_NODE, statsdClient));
   }
 
   if (options.stdout) {
-    trackers.push(new _validation_tracker2['default']());
+    trackers.push(new _validation_tracker2['default'](RIPPLED_PUBKEY_NODE));
   }
 
   trackers.forEach(function (tracker) {

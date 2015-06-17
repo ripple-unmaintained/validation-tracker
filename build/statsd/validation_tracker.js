@@ -19,10 +19,10 @@ var _validation_trackerJs = require('../validation_tracker.js');
 var _validation_trackerJs2 = _interopRequireDefault(_validation_trackerJs);
 
 var StatsdValidationTracker = (function (_ValidationTracker) {
-  function StatsdValidationTracker(statsdClient) {
+  function StatsdValidationTracker(rippledPubKey, statsdClient) {
     _classCallCheck(this, StatsdValidationTracker);
 
-    _get(Object.getPrototypeOf(StatsdValidationTracker.prototype), 'constructor', this).call(this);
+    _get(Object.getPrototypeOf(StatsdValidationTracker.prototype), 'constructor', this).call(this, rippledPubKey);
     this.client = statsdClient;
   }
 
