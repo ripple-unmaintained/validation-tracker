@@ -17,6 +17,7 @@ var _database2 = _interopRequireDefault(_database);
 exports['default'] = _database2['default'].define('Validation', {
   ledger_id: _sequelize2['default'].INTEGER,
   node_id: _sequelize2['default'].INTEGER,
+  reporter_public_key: _sequelize2['default'].STRING,
   timestamp: _sequelize2['default'].DATE
 }, {
   timestamps: true,

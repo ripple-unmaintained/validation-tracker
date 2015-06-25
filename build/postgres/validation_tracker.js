@@ -6,6 +6,8 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
@@ -22,9 +24,7 @@ var SqlValidationTracker = (function (_ValidationTracker) {
   function SqlValidationTracker() {
     _classCallCheck(this, SqlValidationTracker);
 
-    if (_ValidationTracker != null) {
-      _ValidationTracker.apply(this, arguments);
-    }
+    _get(Object.getPrototypeOf(SqlValidationTracker.prototype), 'constructor', this).apply(this, arguments);
   }
 
   _inherits(SqlValidationTracker, _ValidationTracker);
@@ -45,12 +45,12 @@ var SqlValidationTracker = (function (_ValidationTracker) {
           } });
       }).spread(function (_ledger, created) {
         ledger = _ledger;
-        return _.models.Validation.create({ where: {
-            ledger_id: ledger.id,
-            node_id: node.id,
-            reporter_public_key: _this.rippledPubKey
-          } });
-      }).spread(function (_validation, created) {
+        return _.models.Validation.create({
+          ledger_id: ledger.id,
+          node_id: node.id,
+          reporter_public_key: _this.rippledPubKey
+        });
+      }).then(function (_validation) {
         console.log('saved validation in postgres', _validation.toJSON());
       })['catch'](function (error) {
         console.log('PSQL Error', error);

@@ -15,7 +15,8 @@ var _database = require('../database');
 var _database2 = _interopRequireDefault(_database);
 
 exports['default'] = _database2['default'].define('Node', {
-  validation_public_key: _sequelize2['default'].STRING }, {
+  validation_public_key: _sequelize2['default'].STRING
+}, {
   timestamps: true,
   underscored: true,
   tableName: 'nodes'
