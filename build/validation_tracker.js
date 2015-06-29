@@ -47,7 +47,7 @@ var RippledLogMonitor = (function () {
                 var _entry = new _validation_log_entry2['default'](logEntry);
                 _this.onValidation(_entry.toJSON());
               } catch (err) {
-                _betterConsole2['default'].err('' + err + ': ' + entry);
+                _betterConsole2['default'].err(err + ': ' + entry);
               }
             }
           }

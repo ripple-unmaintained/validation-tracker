@@ -21,26 +21,6 @@ var ValidationLogEntry = (function () {
   }
 
   _createClass(ValidationLogEntry, [{
-    key: "hash",
-    get: function () {
-      return this.entry[5];
-    }
-  }, {
-    key: "public_key",
-    get: function () {
-      return this.entry[7];
-    }
-  }, {
-    key: "trusted",
-    get: function () {
-      return this.entry[9];
-    }
-  }, {
-    key: "datetime",
-    get: function () {
-      return "" + this.entry[0] + " " + this.entry[1];
-    }
-  }, {
     key: "toJSON",
     value: function toJSON() {
       return {
@@ -49,6 +29,26 @@ var ValidationLogEntry = (function () {
         trusted: this.trusted,
         datetime: this.datetime
       };
+    }
+  }, {
+    key: "hash",
+    get: function get() {
+      return this.entry[5];
+    }
+  }, {
+    key: "public_key",
+    get: function get() {
+      return this.entry[7];
+    }
+  }, {
+    key: "trusted",
+    get: function get() {
+      return this.entry[9];
+    }
+  }, {
+    key: "datetime",
+    get: function get() {
+      return this.entry[0] + " " + this.entry[1];
     }
   }]);
 
