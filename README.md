@@ -28,6 +28,13 @@ The validation tracker may log new validations to one or more database systems:
 validation-tracker --stdout
 ````
 
+### HTTP Service
+````
+export HTTP_SERVICE_URL=service_domain.com/endpoint
+
+validation-tracker --http
+````
+
 ### Postgres
 ````
 export VALIDATION_TRACKER_POSTGRES_URL=postgres://user:pass@127.0.0.1:5432/db_name
@@ -55,7 +62,7 @@ validation-tracker --graphite
 ### All the datastores!
 
 ````
-validation-tracker --graphite --stdout --hbase --postgres
+validation-tracker --http --graphite --stdout --hbase --postgres
 ````
 
 To see all available options run `validation-tracker --help`

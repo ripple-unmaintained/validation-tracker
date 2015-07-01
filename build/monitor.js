@@ -29,6 +29,14 @@ module.exports = function (options) {
 
   var trackers = [];
 
+  if (options.http) {
+    var HttpValidationTracker = require('./http/validation_tracker');
+    if (!process.env.HTTP_SERVICE_URL) {
+      return console.log('HTTP_SERVICE_URL required');
+    }
+    trackers.push(new HttpValidationTracker(RIPPLED_PUBKEY_NODE, process.env.HTTP_SERVICE_URL));
+  }
+
   if (options.hbase) {
     var HbaseValidationTracker = require('./hbase/validation_tracker');
     _bluebird2['default'].promisifyAll(_hbase2['default']);
