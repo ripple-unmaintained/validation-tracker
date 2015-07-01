@@ -44,10 +44,10 @@ var RippledLogMonitor = (function () {
           if (logEntry.length) {
             if (logEntry.indexOf('Validations:DBG Val') > 0) {
               try {
-                var _entry = new _validation_log_entry2['default'](logEntry);
-                _this.onValidation(_entry.toJSON());
+                var entry = new _validation_log_entry2['default'](logEntry);
+                _this.onValidation(entry.toJSON());
               } catch (err) {
-                _betterConsole2['default'].err(err + ': ' + entry);
+                _betterConsole2['default'].error(err + ': ' + logEntry);
               }
             }
           }
