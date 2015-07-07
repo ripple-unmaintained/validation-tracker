@@ -31,6 +31,8 @@ validation-tracker --stdout
 ### HTTP Service
 ````
 export HTTP_SERVICE_URL=service_domain.com/endpoint
+export HTTP_AUTH_USER=username
+export HTTP_AUTH_PASS=password
 
 validation-tracker --http
 ````

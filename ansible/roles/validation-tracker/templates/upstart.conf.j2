@@ -10,6 +10,8 @@ env HBASE_PORT={{ hbase_port }}
 env HBASE_TABLE={{ hbase_table }}
 env VALIDATION_TRACKER_POSTGRES_URL={{ postgres_url }}
 env HTTP_SERVICE_URL={{ http_service_url }}
+env HTTP_AUTH_USER={{ http_auth_user }}
+env HTTP_AUTH_PASS={{ http_auth_pass }}
 
 exec validation-tracker --http
 
