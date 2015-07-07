@@ -11,5 +11,7 @@
         hbase_port: 12345,
         hbase_table: "ledger_validations",
         postgres_url: "postgres://postgres:password@localhost:5432/database",
-        http_service_url: "http://127.0.0.1:1337/validations"
+        http_service_url: "http://127.0.0.1:1337/validations",
+        http_auth_user: "username",
+        http_auth_pass: "password"
       }
