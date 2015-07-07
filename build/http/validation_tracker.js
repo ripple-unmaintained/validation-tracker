@@ -23,11 +23,13 @@ var _superagent = require('superagent');
 var _superagent2 = _interopRequireDefault(_superagent);
 
 var HttpValidationTracker = (function (_ValidationTracker) {
-  function HttpValidationTracker(rippledPubKey, url) {
+  function HttpValidationTracker(rippledPubKey, url, auth_user, auth_pass) {
     _classCallCheck(this, HttpValidationTracker);
 
     _get(Object.getPrototypeOf(HttpValidationTracker.prototype), 'constructor', this).call(this, rippledPubKey);
     this.url = url;
+    this.auth_user = auth_user;
+    this.auth_pass = auth_pass;
   }
 
   _inherits(HttpValidationTracker, _ValidationTracker);
@@ -37,7 +39,7 @@ var HttpValidationTracker = (function (_ValidationTracker) {
 
     // @override
     value: function onValidation(validation) {
-      _superagent2['default'].post(this.url).send({
+      _superagent2['default'].post(this.url).auth(auth_user, auth_pass).send({
         validation_public_key: validation.public_key,
         ledger_hash: validation.hash,
         reporter_public_key: this.rippledPubKey

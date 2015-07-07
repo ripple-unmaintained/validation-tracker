@@ -1,6 +1,6 @@
 {
   "name": "validation-tracker",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Monitors rippled logs for validation events",
   "scripts": {
     "start": "node index.js",
