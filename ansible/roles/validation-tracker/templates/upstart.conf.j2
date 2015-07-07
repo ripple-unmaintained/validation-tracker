@@ -9,8 +9,9 @@ env HBASE_HOST={{ hbase_host }}
 env HBASE_PORT={{ hbase_port }}
 env HBASE_TABLE={{ hbase_table }}
 env VALIDATION_TRACKER_POSTGRES_URL={{ postgres_url }}
+env HTTP_SERVICE_URL={{ http_service_url }}
 
-exec validation-tracker --hbase --postgres
+exec validation-tracker --http
 
 respawn
 
