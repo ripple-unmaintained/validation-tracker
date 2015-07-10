@@ -28,8 +28,8 @@ var HttpValidationTracker = (function (_ValidationTracker) {
 
     _get(Object.getPrototypeOf(HttpValidationTracker.prototype), 'constructor', this).call(this, rippledPubKey);
     this.url = url;
-    this.auth_user = auth_user;
-    this.auth_pass = auth_pass;
+    this.auth_user = auth_user || '';
+    this.auth_pass = auth_pass || '';
   }
 
   _inherits(HttpValidationTracker, _ValidationTracker);
@@ -39,13 +39,13 @@ var HttpValidationTracker = (function (_ValidationTracker) {
 
     // @override
     value: function onValidation(validation) {
-      _superagent2['default'].post(this.url).auth(auth_user, auth_pass).send({
+      _superagent2['default'].post(this.url).auth(this.auth_user, this.auth_pass).send({
         validation_public_key: validation.public_key,
         ledger_hash: validation.hash,
         reporter_public_key: this.rippledPubKey
       }).end(function (err, res) {
         if (err) {
-          console.log('HTTP Service Error', err.message, res.text);
+          console.log('HTTP Service Error', err.message);
         } else {
           console.log('Submitted validation to http service:', JSON.stringify(validation));
         }
