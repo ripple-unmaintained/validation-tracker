@@ -10,6 +10,8 @@
   apt: name=libpq-dev
 - name: Install "validation-tracker" node.js package globally
   npm: name=validation-tracker global=yes state=latest
+- name: Update installed npm package to the latest version
+  command: npm update -g validation-tracker
 - name: Install jq
   apt: name=jq
 - name: Get rippled pubkey_node
